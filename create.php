@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Yangi Foydalanuvchi</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      color: #333;
+    }
+
+    header {
+      background: #2563eb;
+      color: white;
+      padding: 16px 32px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 540px;
+      margin: 40px auto;
+      padding: 0 16px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: #2563eb;
+      color: white;
+      padding: 16px 24px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .card-body {
+      padding: 28px 24px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: #374151;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus {
+      border-color: #2563eb;
+    }
+
+    .card-footer {
+      padding: 16px 24px;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-save {
+      background: #2563eb;
+      color: white;
+      padding: 10px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .btn-save:hover { background: #1d4ed8; }
+
+    .btn-cancel {
+      background: #e5e7eb;
+      color: #374151;
+      padding: 10px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .btn-cancel:hover { background: #d1d5db; }
+  </style>
+</head>
+<body>
+
+<header>👥 Users CRUD</header>
+
+<div class="container">
+  <div class="card">
+    <div class="card-header">➕ Yangi foydalanuvchi qo'shish</div>
+
+    <form action="add.php" method="POST"  >
+      <div class="card-body">
+
+        <div class="form-group">
+          <label for="name">Ism</label>
+          <input type="text" id="name" name="name" placeholder="Ismni kiriting" required/>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="email@example.com" required/>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Yoshi</label>
+          <input type="tel" id="phone" name="eage" placeholder="+998901234567" required/>
+        </div>
+
+      </div>
+
+      <div class="card-footer">
+        <button type="submit" class="btn-save">💾 Saqlash</button>
+        <a href="index.html" class="btn-cancel">Bekor qilish</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
