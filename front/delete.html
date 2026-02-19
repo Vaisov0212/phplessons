@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>O'chirish</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      color: #333;
+    }
+
+    header {
+      background: #2563eb;
+      color: white;
+      padding: 16px 32px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 60px auto;
+      padding: 0 16px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .card-header {
+      background: #ef4444;
+      color: white;
+      padding: 16px 24px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .card-body {
+      padding: 36px 24px;
+    }
+
+    .icon {
+      font-size: 52px;
+      margin-bottom: 16px;
+    }
+
+    .card-body h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #111827;
+    }
+
+    .card-body p {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 6px;
+    }
+
+    .user-info {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 6px;
+      padding: 16px;
+      margin: 20px 0;
+      text-align: left;
+    }
+
+    .user-info p {
+      font-size: 14px;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+
+    .user-info p:last-child { margin-bottom: 0; }
+
+    .user-info strong { color: #111827; }
+
+    .card-footer {
+      padding: 16px 24px;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .btn-delete {
+      background: #ef4444;
+      color: white;
+      padding: 10px 28px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-delete:hover { background: #dc2626; }
+
+    .btn-cancel {
+      background: #e5e7eb;
+      color: #374151;
+      padding: 10px 28px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .btn-cancel:hover { background: #d1d5db; }
+  </style>
+</head>
+<body>
+
+<header>👥 Users CRUD</header>
+
+<div class="container">
+  <div class="card">
+    <div class="card-header">🗑 Foydalanuvchini o'chirish</div>
+
+    <div class="card-body">
+      <div class="icon">⚠️</div>
+      <h3>Rostdan ham o'chirmoqchimisiz?</h3>
+      <p>Bu amalni qaytarib bo'lmaydi.</p>
+
+      <!-- PHP da quyidagi ma'lumotlarni $user dan chiqarish -->
+      <div class="user-info">
+        <p><strong>ID:</strong> 1</p>
+        <p><strong>Ism:</strong> Ali Valiyev</p>
+        <p><strong>Email:</strong> ali@example.com</p>
+        <p><strong>Telefon:</strong> +998901234567</p>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <!-- PHP da: action="delete.php", hidden input id bilan -->
+      <form action="delete.php" method="POST" style="display:contents;">
+        <input type="hidden" name="id" value="1"/>
+        <button type="submit" class="btn-delete">🗑 Ha, o'chirish</button>
+      </form>
+      <a href="index.html" class="btn-cancel">Bekor qilish</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
