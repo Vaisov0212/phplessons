@@ -1,11 +1,14 @@
-<?php
-require('db/connect.php');
+<?php 
+require("db/connect.php");
 
-    $sql="SELECT * FROM users   ORDER BY id DESC ";
-    $result=$conn->query($sql);
-    $users=$result->fetch_all(MYSQLI_ASSOC);
-    ?>
-    
+$sql="SELECT id,name,email,eage FROM users";
+
+$users=$conn->query($sql)->fetch_all(MYSQLI_ASSOC);
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -132,24 +135,26 @@ require('db/connect.php');
         <th>ID</th>
         <th>Ism</th>
         <th>Email</th>
-        <th>yoshi</th>
+        <th>Telefon</th>
         <th>Amallar</th>
       </tr>
     </thead>
     <tbody>
       <!-- PHP da shu yerga foreach bilan chiqarish -->
-        <?php foreach($users as $user):?>
-            <tr>
-                <td><?=$user["id"] ;?></td>
-                <td><?=$user["name"]?></td>
-                <td><?=$user["email"]?></td>
-                <td><?=$user["eage"]?></td>
-                <td class="actions">
-                <a href="edit.html?id=1" class="btn-edit">Tahrir</a>
-                <a href="delete.php?id=1" class="btn-delete" onclick="return confirm('O\'chirishni tasdiqlaysizmi?')">O'chirish</a>
-                </td>
-            </tr>
-        <?php endforeach?>
+       <?php foreach($users as $user):?>
+      <tr>
+        <td><?=$user["id"]  ?></td>
+        <td><?= $user["name"] ?></td>
+        <td><?= $user["email"] ?></td>
+        <td><?=$user["eage"]?></td>
+        <td class="actions">
+          <a href="edit.html?id=1" class="btn-edit">Tahrir</a>
+          <a href="delete.php?id=1" class="btn-delete" onclick="return confirm('O\'chirishni tasdiqlaysizmi?')">O'chirish</a>
+        </td>
+      </tr>
+      <?php endforeach ?>
+      
+      
     </tbody>
   </table>
 </div>

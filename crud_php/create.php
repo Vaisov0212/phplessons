@@ -113,22 +113,26 @@
   <div class="card">
     <div class="card-header">➕ Yangi foydalanuvchi qo'shish</div>
 
-    <form action="add.php" method="POST"  >
+    <form action="add.php" method="POST" enctype="multipart/form-data">
       <div class="card-body">
 
         <div class="form-group">
           <label for="name">Ism</label>
-          <input type="text" id="name" name="name" placeholder="Ismni kiriting" required/>
+          <input type="text" id="name" name="odi" placeholder="Ismni kiriting" required/>
         </div>
 
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="email@example.com" required/>
+          <input type="email" id="email" name="pochta" placeholder="email@example.com" required/>
         </div>
 
         <div class="form-group">
-          <label for="phone">Yoshi</label>
-          <input type="tel" id="phone" name="eage" placeholder="+998901234567" required/>
+          <label for="phone">Telefon</label>
+          <input type="tel" id="phone" name="yosh" required/>
+        </div>
+         <div class="form-group">
+          <label for="phone">Tug'lgan sana</label>
+          <input type="date" id="phone" name="date" required/>
         </div>
 
       </div>
