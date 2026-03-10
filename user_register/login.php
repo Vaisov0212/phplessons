@@ -1,9 +1,13 @@
+
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="uz">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ro'yxatdan o'tish</title>
+  <title>Kirish</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
@@ -31,9 +35,9 @@
     }
 
     /* ---- CARD ---- */
-    .register-card {
+    .login-card {
       width: 100%;
-      max-width: 480px;
+      max-width: 440px;
       background: var(--cream);
       border-radius: 4px;
       overflow: hidden;
@@ -47,10 +51,9 @@
 
     @keyframes riseUp {
       from { opacity: 0; transform: translateY(40px) scale(0.97); }
-      to   { opacity: 1; transform: translateY(0)  scale(1); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    /* gold top bar */
     .card-bar {
       height: 5px;
       background: linear-gradient(90deg, var(--gold-dk), var(--gold), var(--gold-dk));
@@ -63,7 +66,6 @@
     }
 
     .card-eyebrow {
-      font-family: 'DM Sans', sans-serif;
       font-size: .68rem;
       font-weight: 500;
       letter-spacing: .18em;
@@ -74,7 +76,7 @@
 
     .card-title {
       font-family: 'Playfair Display', serif;
-      font-size: 2rem;
+      font-size: 2.1rem;
       font-weight: 900;
       color: var(--ink);
       line-height: 1.1;
@@ -84,6 +86,29 @@
     .card-title span {
       color: var(--gold-dk);
       font-style: italic;
+    }
+
+    /* ---- LOCK ICON ---- */
+    .lock-wrap {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-top: 1rem;
+    }
+
+    .lock-circle {
+      width: 40px; height: 40px;
+      background: var(--ink);
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .lock-text {
+      font-size: .78rem;
+      color: #8a7f70;
+      line-height: 1.4;
     }
 
     /* ---- FORM BODY ---- */
@@ -97,9 +122,7 @@
       animation: fadeSlide .5s ease both;
     }
     .form-group:nth-child(1) { animation-delay: .1s; }
-    .form-group:nth-child(2) { animation-delay: .18s; }
-    .form-group:nth-child(3) { animation-delay: .26s; }
-    .form-group:nth-child(4) { animation-delay: .34s; }
+    .form-group:nth-child(2) { animation-delay: .2s; }
 
     @keyframes fadeSlide {
       from { opacity:0; transform: translateX(-12px); }
@@ -116,17 +139,14 @@
       margin-bottom: .45rem;
     }
 
-    .input-wrap {
-      position: relative;
-    }
+    .input-wrap { position: relative; }
 
     .input-icon {
       position: absolute;
       left: 1rem;
       top: 50%;
       transform: translateY(-50%);
-      width: 18px;
-      height: 18px;
+      width: 18px; height: 18px;
       color: var(--gold-dk);
       pointer-events: none;
       opacity: .8;
@@ -154,38 +174,77 @@
       box-shadow: 0 0 0 3px rgba(200,169,110,0.15);
     }
 
-    /* date fix */
-    input[type="date"].form-control {
-      color: var(--ink);
-      cursor: pointer;
-    }
-    input[type="date"].form-control::-webkit-calendar-picker-indicator {
-      opacity: .4;
-      cursor: pointer;
+    /* error state */
+    .form-control.is-error {
+      border-color: #c0392b;
+      box-shadow: 0 0 0 3px rgba(192,57,43,0.12);
     }
 
-    /* password toggle */
     .toggle-pass {
       position: absolute;
-      right: 1rem;
-      top: 50%;
+      right: 1rem; top: 50%;
       transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #a09080;
-      padding: 0;
-      line-height: 1;
+      background: none; border: none;
+      cursor: pointer; color: #a09080;
+      padding: 0; line-height: 1;
       transition: color .2s;
     }
     .toggle-pass:hover { color: var(--gold-dk); }
 
+    /* ---- REMEMBER + FORGOT ---- */
+    .form-extras {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.6rem;
+      animation: fadeSlide .5s .28s ease both;
+    }
+
+    .remember-label {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      cursor: pointer;
+      font-size: .82rem;
+      color: #6b6355;
+      user-select: none;
+    }
+
+    .remember-box {
+      width: 16px; height: 16px;
+      border: 1.5px solid rgba(200,169,110,0.6);
+      border-radius: 2px;
+      background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: background .2s, border-color .2s;
+    }
+
+    #rememberMe:checked + .remember-label .remember-box {
+      background: var(--gold-dk);
+      border-color: var(--gold-dk);
+    }
+
+    #rememberMe { display: none; }
+
+    .check-icon { display: none; }
+    #rememberMe:checked + .remember-label .check-icon { display: block; }
+
+    .forgot-link {
+      font-size: .82rem;
+      color: var(--gold-dk);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .forgot-link:hover { color: var(--gold); text-decoration: underline; }
+
     /* ---- BUTTON ---- */
-    .btn-register {
+    .btn-login {
       display: block;
       width: 100%;
       height: 52px;
-      margin-top: 1.8rem;
       background: linear-gradient(135deg, var(--ink) 0%, #2a2620 100%);
       border: 1.5px solid var(--gold);
       border-radius: 3px;
@@ -199,36 +258,90 @@
       position: relative;
       overflow: hidden;
       transition: box-shadow .25s, transform .18s;
-      animation: fadeSlide .5s .4s ease both;
+      animation: fadeSlide .5s .36s ease both;
     }
 
-    .btn-register::before {
+    .btn-login::before {
       content: '';
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       background: linear-gradient(135deg, var(--gold-dk), var(--gold));
       opacity: 0;
       transition: opacity .28s;
     }
 
-    .btn-register:hover {
+    .btn-login:hover {
       box-shadow: 0 8px 28px rgba(200,169,110,0.3);
       transform: translateY(-1px);
     }
-    .btn-register:hover::before { opacity: 1; }
-    .btn-register:active { transform: translateY(0); }
+    .btn-login:hover::before { opacity: 1; }
+    .btn-login:active { transform: translateY(0); }
 
-    .btn-register span {
-      position: relative;
-      z-index: 1;
+    .btn-login .btn-text {
+      position: relative; z-index: 1;
+      display: flex; align-items: center;
+      justify-content: center; gap: .6rem;
       transition: color .28s;
     }
-    .btn-register:hover span { color: var(--ink); }
+    .btn-login:hover .btn-text { color: var(--ink); }
+
+    /* loading spinner (shown on click) */
+    .spinner {
+      width: 16px; height: 16px;
+      border: 2px solid currentColor;
+      border-top-color: transparent;
+      border-radius: 50%;
+      display: none;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .btn-login.loading .btn-label { display: none; }
+    .btn-login.loading .spinner   { display: block; }
+
+    /* ---- ALERT ---- */
+    .alert-box {
+      display: none;
+      margin-top: 1rem;
+      padding: .75rem 1rem;
+      border-radius: 3px;
+      font-size: .82rem;
+      border: 1px solid;
+      animation: fadeSlide .3s ease both;
+    }
+    .alert-box.error {
+      display: flex; align-items: center; gap: .5rem;
+      background: #fdf2f2;
+      border-color: #e8c4c0;
+      color: #922;
+    }
+    .alert-box.success {
+      display: flex; align-items: center; gap: .5rem;
+      background: #f2fdf5;
+      border-color: #b8dfc4;
+      color: #2a6640;
+    }
+
+    /* ---- DIVIDER ---- */
+    .divider {
+      display: flex; align-items: center; gap: 1rem;
+      margin: 1.5rem 0;
+      animation: fadeSlide .5s .44s ease both;
+    }
+    .divider::before, .divider::after {
+      content: ''; flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+    .divider span {
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #a09080;
+    }
 
     /* ---- FOOTER ---- */
     .card-foot {
       text-align: center;
-      padding-bottom: 2rem;
       font-size: .82rem;
       color: #8a7f70;
       animation: fadeSlide .5s .5s ease both;
@@ -240,7 +353,7 @@
     }
     .card-foot a:hover { text-decoration: underline; }
 
-    /* corner ornament */
+    /* corners */
     .corner {
       position: absolute;
       width: 36px; height: 36px;
@@ -256,10 +369,9 @@
 </head>
 <body>
 
-<div class="register-card">
+<div class="login-card">
   <div class="card-bar"></div>
 
-  <!-- decorative corners -->
   <div class="corner corner-tl"></div>
   <div class="corner corner-tr"></div>
   <div class="corner corner-bl"></div>
@@ -267,50 +379,55 @@
 
   <!-- HEADER -->
   <div class="card-header-area">
-    <p class="card-eyebrow">Yangi hisob</p>
-    <h1 class="card-title">Ro'yxatdan<br><span>o'tish</span></h1>
+    <p class="card-eyebrow">Xush kelibsiz</p>
+    <h1 class="card-title">Hisobga<br><span>kirish</span></h1>
+
+    <div class="lock-wrap">
+      <div class="lock-circle">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+      </div>
+        <div>
+            <ul>
+                <?php 
+                if(isset($_SESSION["login_errors"])){
+                    $errors=$_SESSION["login_errors"];
+                    foreach($errors as $error){
+                        echo "<li style='color:red' >".$error."</li> <br>";
+                    }
+                    unset($_SESSION["login_errors"]);
+                } ?>
+            </ul>
+        </div>
+    </div>
   </div>
 
   <!-- FORM -->
   <div class="card-body-area">
-    <form action="add.php" method="POST" >
-        <div class="form-group">
-      <label class="form-label" for="fullname">To'liq ism</label>
-      <div class="input-wrap">
-        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-        </svg>
-        <input name="full_name" type="text" class="form-control" id="fullname" placeholder="Ism Familiya Sharif">
-      </div>
-    </div>
 
-    <div class="form-group">
-      <label class="form-label" for="birthdate">Tug'ilgan sana</label>
-      <div class="input-wrap">
-        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-        </svg>
-        <input name="brith_date" type="date" class="form-control" id="birthdate">
-      </div>
-    </div>
-
+    <form action="verfication.php" method="POST" >
+        <!-- Login input -->
     <div class="form-group">
       <label class="form-label" for="login">Login</label>
       <div class="input-wrap">
         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="5" width="20" height="14" rx="2"/><polyline points="2 10 12 16 22 10"/>
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
         </svg>
-        <input name="login" type="text" class="form-control" id="login" placeholder="foydalanuvchi_nomi">
+        <input name="login" type="text" class="form-control" id="login" placeholder="foydalanuvchi_nomi" autocomplete="username">
       </div>
     </div>
 
+    <!-- Password input -->
     <div class="form-group">
       <label class="form-label" for="password">Parol</label>
       <div class="input-wrap">
         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          <rect x="3" y="11" width="18" height="11" rx="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
         </svg>
-        <input name="pass" type="password" class="form-control" id="password" placeholder="••••••••">
+        <input name="password" type="password" class="form-control" id="password" placeholder="••••••••" autocomplete="current-password">
         <button class="toggle-pass" type="button" aria-label="Parolni ko'rsatish" onclick="
           var i=document.getElementById('password');
           i.type = i.type==='password' ? 'text' : 'password';
@@ -318,25 +435,57 @@
           this.querySelector('.eye-on').style.display  = i.type==='text' ? 'block' : 'none';
         ">
           <svg class="eye-off" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
           </svg>
           <svg class="eye-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
           </svg>
         </button>
       </div>
     </div>
 
-    <button class="btn-register" type="submit">
-      <span>Ro'yxatdan o'tish</span>
+    <!-- Remember + Forgot -->
+    <div class="form-extras">
+      <input type="checkbox" id="rememberMe">
+      <label for="rememberMe" class="remember-label">
+        <div class="remember-box">
+          <svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="1.5 5 4 7.5 8.5 2.5"/>
+          </svg>
+        </div>
+        Meni eslab qol
+      </label>
+      <a href="#" class="forgot-link">Parolni unutdingizmi?</a>
+    </div>
+
+    <!-- Alert box -->
+    <div class="alert-box" id="alertBox">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <span id="alertMsg"></span>
+    </div>
+
+    <!-- Submit button -->
+    <button class="btn-login" type="submit" id="loginBtn" >
+      <div class="btn-text">
+        <span class="btn-label">Kirish</span>
+        <div class="spinner"></div>
+      </div>
     </button>
 
-    <div class="card-foot mt-3">
-      Hisobingiz bormi? <a href="login.php">Kirish</a>
+    <div class="divider"><span>yoki</span></div>
+
+    <div class="card-foot">
+      Hisobingiz yo'qmi? <a href="create.php">Ro'yxatdan o'tish</a>
     </div>
     </form>
   </div>
 </div>
+
 
 </body>
 </html>
