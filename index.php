@@ -29,7 +29,8 @@ $students=$stmt->fetchAll();
             <th>eage</th>
             <th>amallar</th>
         </tr>
-         <?php  $i=0;
+         <?php 
+         $i=0;
           foreach($students as $student) : 
            
             $i++; ?>
@@ -41,8 +42,13 @@ $students=$stmt->fetchAll();
             <td><?= $student["email"] ?></td>
             <td><?= $student["eage"] ?></td>
             <td>
-                <input value="edit" type="submit">
-                <input value="delete" type="submit">
+             <div style="display: flex;" >
+                   <input value="edit" type="submit">
+              <form action="delete.php" method="POST" >
+                <input name="s_id" value="<?= $student['id'] ?>" type="hidden">
+                  <input value="delete" type="submit">
+              </form>
+             </div>
             </td>
            
         </tr>
