@@ -43,7 +43,10 @@ $students=$stmt->fetchAll();
             <td><?= $student["eage"] ?></td>
             <td>
              <div style="display: flex;" >
-                   <input value="edit" type="submit">
+                   <form action="show.php" method="POST" >
+                    <input name="s_id" value="<?= $student["id"] ?>" type="hidden">
+                    <input value="edit" type="submit">
+                   </form>
               <form action="delete.php" method="POST" >
                 <input name="s_id" value="<?= $student['id'] ?>" type="hidden">
                   <input value="delete" type="submit">
